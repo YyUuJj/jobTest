@@ -24,14 +24,10 @@ let Visible = function (target) {
     targetPosition.right > windowPosition.left && // Если позиция правой стороны элемента больше позиции левой части окна, то элемент виден слева
     targetPosition.left < windowPosition.right) { // Если позиция левой стороны элемента меньше позиции правой чайти окна, то элемент виден справа
     // Если элемент полностью видно, то запускаем следующий код
-    console.clear();
-    console.log('Вы видите элемент :)');
     showAnimation();
   } else {
     // Если элемент не видно, то запускаем этот код
-    console.clear();
     clearAnimation();
-    console.log("Элемент не видно" + clear);
   };
 };
 
