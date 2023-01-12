@@ -26,10 +26,10 @@ function slider(sliderBanner, sliderImg) {
     let currentSlide = {
         id: 0
     };
-    createEventNav(slidesId, sliderBanner, sliderImg, currentSlide);
-    setInterval(() => {
+    let interval = setInterval(() => {
         autoChangeSlide(currentSlide, sliderBanner, sliderImg, slidesId);
     },3000);
+    createEventNav(slidesId, sliderBanner, sliderImg, currentSlide, interval);
 }
 
 function createSliderNav(slides) {
@@ -50,13 +50,17 @@ function autoChangeSlide(currentSlide, sliderBanner, sliderImg, slides) {
     changeCurrentSlide(slides, currentSlide.id);
 }
 
-function createEventNav(slides, sliderBanner, sliderImg, currentSlide) {
+function createEventNav(slides, sliderBanner, sliderImg, currentSlide, interval) {
     slides.forEach((element, key) => {
         let el = document.querySelector(`#${element}`);
         el.addEventListener('click', () => {
-           el.classList.add('active');
-           currentSlide.id = key;
-           changeCurrentSlide(slides, key);
+            el.classList.add('active');
+            clearInterval(interval);
+            interval = setInterval(() => {
+                autoChangeSlide(currentSlide, sliderBanner, sliderImg, slides);
+            },3000);
+            currentSlide.id = key;
+            changeCurrentSlide(slides, key);
             sliderBanner.style.backgroundImage = `url('resources/img/${sliderImg[key]+".jpg"}')`;
         });
     });
